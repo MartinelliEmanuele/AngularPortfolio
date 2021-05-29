@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg data-bbox="0 -1.224 1237.109 219.296" viewBox="0 0 1263.85 224.03" xmlns="http://www.w3.org/2000/svg" data-type="ugc">
+    <g>
+        <path fill="#ff4a4a" d="M641.81 91.03v114.93H0V91.03h641.81z"/>
+        <path stroke="#000000" stroke-miterlimit="10" stroke-width="4" d="M643.43 209.31V87.69"/>
+        <text transform="translate(10.6 75.12)" font-size="85.56" font-family="Meiryo-Bold,Meiryo" font-weight="700">
+            エマ
+        </text>
+        <text transform="translate(0 191.51)" font-size="122.73" fill="#ffffff" font-family="Montserrat-Regular,Montserrat">
+            Emanuele <tspan y="0" x="663.84" letter-spacing="0" font-family="Montserrat-SemiBold,Montserrat" font-weight="600" fill="#000000">Ma</tspan><tspan y="0" x="855.54" letter-spacing=".01em" font-family="Montserrat-SemiBold,Montserrat" font-weight="600" fill="#000000">r</tspan><tspan y="0" x="908.93" font-family="Montserrat-SemiBold,Montserrat" font-weight="600" fill="#000000">ti</tspan><tspan y="0" x="996.43" letter-spacing="0" font-family="Montserrat-SemiBold,Montserrat" font-weight="600" fill="#000000">n</tspan><tspan y="0" x="1081.11" font-family="Montserrat-SemiBold,Montserrat" font-weight="600" fill="#000000">elli</tspan>
+        </text>
+    </g>
+</svg>
