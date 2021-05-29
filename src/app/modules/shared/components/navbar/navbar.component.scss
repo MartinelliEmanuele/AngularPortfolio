@@ -1,3 +1,5 @@
+$primary-red: #ff4a4a;
+
 .flex-spacer {
   flex: 1 1 auto;
 }
@@ -5,4 +7,8 @@
 .logo {
     width: 12%;
     height: auto
+}
+
+.button-ref:hover {
+  color: $primary-red;
 }

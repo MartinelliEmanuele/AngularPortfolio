@@ -11,12 +11,20 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { LandingComponent } from './views/landing/landing.component';
 import { HomeComponent } from './views/home/home.component';
+import { SidebarItemsComponent } from './components/sidebar-items/sidebar-items.component';
+import { WeatherForecastComponent } from './views/weather-forecast/weather-forecast.component';
+import { TodoListComponent } from './views/todo-list/todo-list.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarItemsComponent,
+    WeatherForecastComponent,
+    TodoListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

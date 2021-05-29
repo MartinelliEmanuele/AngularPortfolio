@@ -1,0 +1,114 @@
+$primary-red: #ff4a4a;
+$angular-red: #dd0031;
+
+.angular-logo {
+  max-width: 80%;
+}
+
+.h-custom {
+  height: 80%;
+}
+
+.title {
+  & strong {
+    color: $angular-red;
+  }
+  margin-bottom: 5px;
+}
+
+.red-bg {
+  background-color: $angular-red;
+  color: #ffffff;
+}
+
+.squares {
+  animation: wobble 1s infinite;
+  background: $primary-red;
+  position: fixed;
+  transition: 0.5s ease-out;
+  overflow: hidden;
+  border-radius: 20%;
+  z-index: -1;
+  &.square1 {
+    animation: wobble 4s infinite;
+    height: 300px;
+    width: 300px;
+    opacity: 0.5;
+    left: 3%;
+    top: -21%;
+  }
+
+  &.square2 {
+    animation: wobble 7s infinite;
+    height: 400px;
+    width: 400px;
+    opacity: 0.4;
+    right: -5%;
+    top: -12%;
+  }
+
+  &.square3 {
+    animation: wobble 6s infinite;
+    height: 200px;
+    width: 200px;
+    opacity: 0.1;
+    left: -5%;
+    bottom: 0%;
+  }
+
+  &.square4 {
+    animation: wobble 11s infinite;
+    height: 100px;
+    width: 100px;
+    opacity: 0.9;
+    right: 27%;
+    top: 70%;
+  }
+
+  &.square5 {
+    animation: wobble 7s infinite;
+    height: 250px;
+    width: 250px;
+    opacity: 0.1;
+    left: 26%;
+    bottom: 25%;
+  }
+
+  &.square6 {
+    animation: wobble 9s infinite;
+    left: 10%;
+    top: 35%;
+    height: 80px;
+    width: 80px;
+    opacity: 0.8;
+  }
+
+  &.square7 {
+    animation: wobble 2s infinite;
+    width: 300px;
+    height: 300px;
+    right: -5%;
+    bottom: 0%;
+    opacity: 0.1;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@media screen and (max-width: 970px) {
+  .squares {
+    display: none;
+  }
+}

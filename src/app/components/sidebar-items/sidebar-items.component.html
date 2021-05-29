@@ -1,0 +1,8 @@
+<mat-nav-list>
+    <a routerLinkActive="active" class="pl-2 pr-2 mb-2 sidebar-item" mat-list-item *ngFor="let page of sidebarItems" [routerLink]="page.path" (click)="navigated.emit(true)">
+      <span class="menu-icon w-10 me-2">
+        <mat-icon>{{page.icon}}</mat-icon>
+      </span>
+      <span class="pl-3 page-title">{{ page?.title }} </span>
+    </a>
+</mat-nav-list>

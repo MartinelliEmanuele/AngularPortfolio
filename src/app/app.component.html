@@ -1,25 +1,15 @@
-<mat-sidenav-container class="sidebar-container" *ngIf="!isFullPage(); else fullPage">
-  <mat-sidenav #sidebar mode="over">
+<mat-sidenav-container class="sidebar-container" *ngIf="!isFullPage(); else fullPage" [hasBackdrop]="true">
+  <mat-sidenav #sidebar mode="side" class="sidebar">
     <div class="container-fluid">
       <div>
-        <mat-nav-list>
-          <a class="pl-2 pr-2" mat-list-item *ngFor="let page of sidebarItems" [routerLink]="page.path">
-            <span class="menu-icon w-10">
-              <!-- <i [class]="'fad fa-' + page?.icon"></i> -->
-              <mat-icon>{{page.icon}}</mat-icon>
-            </span>
-            <span class="pl-3">{{ page?.title }} </span>
-          </a>
-        </mat-nav-list>
+        <app-sidebar-items (navigated)="sidebar.toggle()"></app-sidebar-items>
       </div>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-navbar (toggled)="sidebar.toggle()"></app-navbar>
     <div class="container-fluid">
-      <div class="row">
         <router-outlet></router-outlet>
-      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div class="row mt-5">
+    <div class="col-12 d-flex justify-content-center">
+        
+        <h1 class="text-center"><strong>Welcome!</strong><br/> what would you like to see?</h1>
+    </div>
+</div>
+<div class="row module-container">
+    <mat-card class="modules-card col-6" [routerLink]="module.path" *ngFor="let module of cards">
+        <div class="w-100 text-center">
+            <mat-icon class="module-icon">{{module.icon}}</mat-icon>
+        </div>
+        <mat-card-content class="text-center">
+            <h2>{{module.title}}</h2>
+            <mat-card-subtitle>
+                {{module.description}}
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+
+</div>

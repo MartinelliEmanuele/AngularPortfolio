@@ -1,0 +1,16 @@
+$primary-red: #ff4a4a;
+
+.menu-icon {
+    color: $primary-red;
+}
+
+.active, .active:hover {
+    background-color: rgba($primary-red, 0.9) !important;
+    border-radius: 5px;
+    & .menu-icon {
+        color: #ffffff;
+    }
+    & .page-title {
+        color: #ffffff;
+    }
+}
