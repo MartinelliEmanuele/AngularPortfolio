@@ -1,1 +1,131 @@
-<p>weather-forecast works!</p>
+<div class="row">
+    <div class="col-sm-12 col-md-6 d-flex align-items-center">
+        <mat-form-field class="col-11 ps-3">
+            <mat-label>City</mat-label>
+            <input type="text" placeholder="Select the city" aria-label="city" matInput [formControl]="cityFormControl"
+                [matAutocomplete]="auto" (blur)="getForecast()">
+            <span matSuffix *ngIf="isCalling">
+                <mat-spinner color="warn" [diameter]="15"></mat-spinner>
+            </span>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getForecast()">
+                <mat-option *ngFor="let city of filteredCities | async" [value]="city.city">
+                    {{city.city}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-icon class="col-1 pointer" (click)="updateForecast()" matTooltip="aggiorna dati">refresh</mat-icon>
+    </div>
+</div>
+<ng-container *ngIf="forecast">
+    <div class="row" *ngFor="let weather of forecast.weather">
+        <div class="d-md-flex">
+            <div class="d-md-inline-block">
+                <mat-card class="weather-card ml-0">
+                    <div class="d-flex justify-content-end">
+                        <img class="weather-img" [src]="'http://openweathermap.org/img/wn/' + weather.icon + '@2x.png'">
+                    </div>
+                    <mat-card-content>
+                        <div class="row mb-3 mt-4">
+                            <div class="col-12">
+                                <h1 class="temperature mb-1">{{forecast.main.temp | number: '1.0-0'}}°</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h1>{{forecast.name}}</h1>
+                            </div>
+                            <div class="col-12">
+                                <mat-card-subtitle class="mb-0">{{weather.main}}</mat-card-subtitle>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+    
+            </div>
+            <div class="d-md-inline-block accordion-row">
+                <mat-accordion class="accordion-info">
+                    <!--Primo expansion panel info temperature-->
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Temperature Data
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Feels like, maximum and minimum temperatures
+                                <mat-icon>thermostat</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="row">
+                            <span>Feels like: <strong>{{forecast.main.feels_like | number: '1.0-0'}}°C</strong></span>
+                        </div>  
+                        <div class="row">
+                            <span>Maximum Temperature: <strong>{{forecast.main.temp_max | number: '1.0-0'}}°C</strong></span>
+                        </div>  
+                        <div class="row">
+                            <span>Minimum Temperature: <strong>{{forecast.main.temp_min | number: '1.0-0'}}°C</strong></span>
+                        </div>  
+    
+                        <mat-action-row>
+                            <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+    
+                    <!--Secondo expansion panel alba e tramonto-->
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Sun
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Sunrise and sunset hours
+                                <mat-icon>light_mode</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="row">
+                            <span>Sunrise: <strong>{{getTime(forecast.sys.sunrise)}}</strong></span>
+                        </div>  
+                        <div class="row">
+                            <span>Sunset: <strong>{{getTime(forecast.sys.sunset)}}</strong></span>
+                        </div>
+    
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+    
+                    <!--Terzo expansion panel altre info-->
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                More info
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                humidity, visbility and wind
+                                <mat-icon>info</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+    
+                        <div class="row">
+                            <span>Humidity: <strong>{{forecast.main.humidity}}%</strong></span>
+                        </div>  
+                        <div class="row">
+                            <span>Visibility: <strong>{{forecast.visibility / 100}}km</strong></span>
+                        </div>  
+                        <div class="row">
+                            <span>Wind speed: <strong>{{forecast.wind.speed | number: '1.0-0'}}m/s</strong></span>
+                        </div>  
+    
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+    
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</ng-container>

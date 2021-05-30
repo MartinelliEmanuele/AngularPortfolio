@@ -2,6 +2,9 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './interceptors/http-error-interceptor';
+import { SharedModule } from '../shared/shared.module';
 
 export const MY_FORMATS = {
   parse: {
@@ -18,7 +21,9 @@ export const MY_FORMATS = {
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    SharedModule
   ]
 })
 export class CoreModule { 
@@ -40,7 +45,7 @@ export class CoreModule {
         {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
         {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: false}},
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-        // {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true }
+        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
       ]
     }
   }

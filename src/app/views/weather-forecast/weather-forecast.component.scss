@@ -1,0 +1,39 @@
+$primary-red: #ff4a4a;
+
+.weather-card {
+  width: 270px;
+  margin: 10px;
+  border-radius: 15px;
+  & h1 {
+    margin-bottom: 0;
+  }
+}
+
+.temperature {
+  font-size: 80px;
+}
+
+.weather-img {
+  animation: weather-icon-move 5s ease-in-out infinite;
+}
+
+@keyframes weather-icon-move {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.accordion-row {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
