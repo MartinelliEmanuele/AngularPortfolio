@@ -77,3 +77,13 @@ export interface City {
     population: string;
     population_proper: string;
 }
+
+//Todo item
+
+export interface TodoItem {
+    Id: number;
+    Title: string;
+    Description: string;
+    Due?: Date | string;
+    IsComplete: boolean;
+}

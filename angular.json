@@ -80,7 +80,8 @@
               "browserTarget": "PortfolioAngular:build:production"
             },
             "development": {
-              "browserTarget": "PortfolioAngular:build:development"
+              "browserTarget": "PortfolioAngular:build:development",
+              "proxyConfig": "./proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

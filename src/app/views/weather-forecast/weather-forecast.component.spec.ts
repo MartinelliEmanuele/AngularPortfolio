@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeatherForecastComponent } from './weather-forecast.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { WeatherForecastService } from '../../modules/core/services/weather/forecast/weather-forecast.service';
+import { AppModule } from '../../app.module';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 describe('WeatherForecastComponent', () => {
   let component: WeatherForecastComponent;
@@ -8,6 +12,7 @@ describe('WeatherForecastComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, SharedModule],
       declarations: [ WeatherForecastComponent ]
     })
     .compileComponents();

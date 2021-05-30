@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { City, WeatherForecast } from 'src/app/modules/shared/models/types';
 import { WeatherForecastService } from '../../modules/core/services/weather/forecast/weather-forecast.service';
 import { UtilsService } from '../../modules/core/services/utils.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -13,7 +13,9 @@ import * as moment from 'moment';
   templateUrl: './weather-forecast.component.html',
   styleUrls: ['./weather-forecast.component.scss']
 })
-export class WeatherForecastComponent implements OnInit {
+export class WeatherForecastComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+
   forecast?: WeatherForecast;
   cities: City[] = [];
   filteredCities: Observable<City[]>;
@@ -33,7 +35,9 @@ export class WeatherForecastComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.utils.getCitiesFromJson().subscribe(result=>{this.cities=result})
+    this.subscriptions.push(
+      this.utils.getCitiesFromJson().subscribe(result=>{this.cities=result})
+    )
   }
 
   //Recupera le previsioni per la città selezionata
@@ -43,20 +47,24 @@ export class WeatherForecastComponent implements OnInit {
       this.isCalling = true;
       console.log(this.cityFormControl.value);
       this.lastCity = this.cityFormControl.value;
-      this.weatherForecastService.getWeatherForcast(this.cityFormControl.value).subscribe(result => {
-        this.forecast = result;
-        this.isCalling = false;
-        this.callMoment = moment().format("DD/MM/yyyy HH:mm:ss")
-      });
+      this.subscriptions.push(
+        this.weatherForecastService.getWeatherForcast(this.cityFormControl.value).subscribe(result => {
+          this.forecast = result;
+          this.isCalling = false;
+          this.callMoment = moment().format("DD/MM/yyyy HH:mm:ss")
+        })
+      );
     }
   }
 
   //Forza l'aggiornamento dei dati visualizzati
   updateForecast(){
-    this.weatherForecastService.getWeatherForcast(this.cityFormControl.value).subscribe(result => {
-      this.forecast = result;
-      this.isCalling = false;
-    });
+    this.subscriptions.push(
+      this.weatherForecastService.getWeatherForcast(this.cityFormControl.value).subscribe(result => {
+        this.forecast = result;
+        this.isCalling = false;
+      })
+    )
   }
 
   ///filtra le città al cambio del valore dell'autocomplete
@@ -87,4 +95,8 @@ export class WeatherForecastComponent implements OnInit {
   }
 
   //#endregion
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 }

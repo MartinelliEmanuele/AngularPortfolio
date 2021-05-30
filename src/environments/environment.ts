@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  weatherApiKey: "08b146c1e2bbc585f3872ea3bf477506"
+  weatherApiKey: "08b146c1e2bbc585f3872ea3bf477506",
+  baseUrl: "http://localhost:4200",
+  apiBaseUrl: "http://localhost:4200/api",
 };
 
 /*
