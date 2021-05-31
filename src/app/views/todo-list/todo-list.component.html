@@ -1,5 +1,96 @@
-<p>todo-list works!</p>
+<form [formGroup]="formTodo" (submit)="sendTodo()">
+    <div class="row ps-3">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput id="title-input" type="text" formControlName="Title" required />
+                    <mat-error *ngIf="!formTodo.get('title')?.valid">Title is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput id="desc-input" #description type="text" formControlName="Description" maxlength="255" />
+                    <mat-hint>{{description.value.length}}/255</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Due</mat-label>
+                    <input matInput id="date-input" [min]="minDate" [matDatepicker]="picker" formControlName="Due">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-12">
+                <mat-slide-toggle id="complete-input" color="warn" formControlName="IsComplete">Completed</mat-slide-toggle>
+            </div>
+        </div>
+        <div class="row">
+            <button class="ms-md-3 mt-3 col-sm-12 col-md-1" id="submit-btn" mat-raised-button type="submit"
+                [disabled]="!formTodo.valid">{{formTodo.value && formTodo.value.Id ? 'Edit' : 'Save'}}</button>
+        </div>
+    </div>
 
-<code>
-    {{ items | json }}
-</code>
+</form>
+
+<div class="row ps-3 mt-3 w-100">
+    <!--Tabella dei todo-->
+    <table mat-table [dataSource]="items" class="todos-table" matSort matSortActive="created" matSortDisableClear
+        matSortDirection="desc">
+        <!-- Colonna Id -->
+        <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.Id}}</td>
+        </ng-container>
+
+        <!-- Colonna Titolo -->
+        <ng-container matColumnDef="Title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let row">{{row.Title}}</td>
+        </ng-container>
+
+        <!-- Colonna Descrizione -->
+        <ng-container matColumnDef="Description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let row">{{row.Description}}</td>
+        </ng-container>
+
+        <!-- Colonna Scadenza -->
+        <ng-container matColumnDef="Due">
+            <th mat-header-cell *matHeaderCellDef>
+                Due
+            </th>
+            <td mat-cell *matCellDef="let row">{{row.Due | date: 'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <!-- Colonna Completamento -->
+        <ng-container matColumnDef="IsCompleted">
+            <th mat-header-cell *matHeaderCellDef>
+                Completed
+            </th>
+            <td mat-cell *matCellDef="let row">{{row.IsComplete ? 'Yes' : 'No'}}</td>
+        </ng-container>
+
+        <!-- Colonna Azioni -->
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>
+                Actions
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-icon class="pointer me-1 edit-icon" (click)="prepareEditFields(row)">edit</mat-icon>
+                <mat-icon class="pointer delete-icon" (click)="deleteTodo(row)">clear</mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+</div>
